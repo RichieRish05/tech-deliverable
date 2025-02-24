@@ -15,7 +15,7 @@ class Quote(TypedDict):
     time: str
 
 
-database: JSONDatabase[list[Quote]] = JSONDatabase("data/database.json")
+database: JSONDatabase[list[Quote]] = JSONDatabase("api/data/database.json")
 
 
 @asynccontextmanager
@@ -41,10 +41,14 @@ def post_message(name: str = Form(), message: str = Form()) -> RedirectResponse:
     """
     now = datetime.now()
     quote = Quote(name=name, message=message, time=now.isoformat(timespec="seconds"))
+    print(quote)
     database["quotes"].append(quote)
 
     # You may modify the return value as needed to support other functionality
     return RedirectResponse("/", status.HTTP_303_SEE_OTHER)
 
 
-# TODO: add another API route with a query parameter to retrieve quotes based on max age
+@app.get("/quotes")
+def get_quotes(max_age: int | None = None) -> list[Quote]:
+    pass
+    # TODO: add API route with a query parameter to retrieve quotes based on max age

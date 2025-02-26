@@ -2,11 +2,12 @@ from contextlib import asynccontextmanager
 from datetime import datetime
 from typing import AsyncIterator
 
-from fastapi import FastAPI, Form, status
-from fastapi.responses import RedirectResponse
+from fastapi import FastAPI, Form, status, HTTPException
+from fastapi.responses import RedirectResponse, StreamingResponse
 from typing_extensions import TypedDict
 
 from services.database import JSONDatabase
+from datetime import datetime, timedelta
 
 
 class Quote(TypedDict):
@@ -48,7 +49,40 @@ def post_message(name: str = Form(), message: str = Form()) -> RedirectResponse:
     return RedirectResponse("/", status.HTTP_303_SEE_OTHER)
 
 
+
 @app.get("/quotes")
-def get_quotes(max_age: int | None = None) -> list[Quote]:
-    pass
-    # TODO: add API route with a query parameter to retrieve quotes based on max age
+def generate_quotes(max_age: str):
+    """
+    Return quotes from the database based on the max age.
+    """
+
+    ages = {
+        'day': timedelta(days=1),
+        'week': timedelta(days=7),
+        'month': timedelta(days=30),
+        'year': timedelta(days=365),
+        'all': datetime.min
+    }
+    
+    # Get the cutoff date
+    cutoff = ages['all'] if max_age == 'all' else datetime.now() - ages[max_age]
+
+    
+    # Filter the quotes
+    filtered_quotes = [quote for quote in database['quotes'] if datetime.fromisoformat(quote['time']) >= cutoff]
+
+    return filtered_quotes
+
+
+
+
+
+
+
+
+
+
+
+# for quote in generate_quotes('week'):
+#     print(quote)
+

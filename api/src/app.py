@@ -50,7 +50,7 @@ def post_message(name: str = Form(), message: str = Form()) -> RedirectResponse:
 
 
 
-@app.get("/quotes")
+@app.get("/getquotes")
 def generate_quotes(max_age: str):
     """
     Return quotes from the database based on the max age.

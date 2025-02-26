@@ -1,6 +1,16 @@
 import "./App.css";
+import { useEffect, useState } from "react";
+import QuoteDisplay from "./quote-display";
 
 function App() {
+
+	const [quotes, setQuotes] = useState([]);
+
+	useEffect(() => {
+		fetch('/api/getquotes?max_age=week')
+			.then((res) => res.json())
+			.then((data) => setQuotes(data))
+	}, []);
 	return (
 		<div className="App">
 			{/* TODO: include an icon for the quote book */}
@@ -18,11 +28,8 @@ function App() {
 
 			<h2>Previous Quotes</h2>
 			{/* TODO: Display the actual quotes from the database */}
-			<div className="messages">
-				<p>Peter Anteater</p>
-				<p>Zot Zot Zot!</p>
-				<p>Every day</p>
-			</div>
+
+			<QuoteDisplay quotes={quotes} />
 		</div>
 	);
 }

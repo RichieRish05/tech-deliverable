@@ -3,7 +3,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const DropdownMenu = ({ args, onSelect }) => {
 
-    const [selectedOption, setSelectedOption] = useState('All');
+    const [selectedOption, setSelectedOption] = useState('week');
 
     const handleSelect = (arg) => {
         setSelectedOption(arg);
@@ -13,7 +13,7 @@ const DropdownMenu = ({ args, onSelect }) => {
     }
 
     return (
-        <div className="dropdown d-inline-block mx-5">
+        <div className="dropdown d-inline-block">
             <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {selectedOption}
             </button>

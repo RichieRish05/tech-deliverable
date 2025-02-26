@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Quote from "./quote";
 
-const formatDateTime = (dateTimeStr) => {
-    const date = new Date(dateTimeStr);
-    return date.toLocaleString();  
-};
 
 const QuoteDisplay = ({ quotes }) => {
 
 
     return (
     <div className="container mt-5">
-        <div className="scrollable-list border rounded p-3">
+        <div className="scrollable-list overflow-auto border rounded p-3" style={{ height: '500px' }}>
             <ul className="list-group">
                 {quotes.map((quote, index) => (
                     <li className="list-group-item" key={index}>
-                        {quote.name}: {quote.message} data: {formatDateTime(quote.time)}
+                        <Quote quote={quote} />
                     </li>
                 ))}
             </ul>

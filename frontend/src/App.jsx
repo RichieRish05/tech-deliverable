@@ -2,14 +2,14 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import QuoteDisplay from "./components/quote-display";
 import DropdownMenu from "./components/dropdown-menu";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
 	const [quotes, setQuotes] = useState([]);
-	const [timePeriod, setTimePeriod] = useState('all');
+	const [timePeriod, setTimePeriod] = useState('week');
 
 	useEffect(() => {
-		console.log(timePeriod);
 		fetch(`/api/getquotes?max_age=${timePeriod}`)
 			.then((res) => res.json())
 			.then((data) => setQuotes(data))
@@ -18,6 +18,7 @@ function App() {
 
 
 	const handleFormSubmit = async(e) => {
+		// Prevent the page from refreshing
 		e.preventDefault();
 
 		// Get the form data
@@ -64,6 +65,7 @@ function App() {
 				<label htmlFor="input-message">Quote</label>
 				<input type="text" name="message" id="input-message" required />
 				<button type="submit">Submit</button>
+				<span className="mx-2">Show quotes from the last</span>
 				<DropdownMenu 
 					args={["week", "month", "year", "all"]}
 					onSelect={(value) => setTimePeriod(value)}

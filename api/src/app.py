@@ -71,7 +71,9 @@ def generate_quotes(max_age: str):
     # Filter the quotes
     filtered_quotes = [quote for quote in database['quotes'] if datetime.fromisoformat(quote['time']) >= cutoff]
 
-    return filtered_quotes
+
+    # Reverse the list to get the newest quotes first
+    return filtered_quotes[::-1]
 
 
 

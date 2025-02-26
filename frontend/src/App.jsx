@@ -1,16 +1,20 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import QuoteDisplay from "./quote-display";
+import QuoteDisplay from "./components/quote-display";
+import DropdownMenu from "./components/dropdown-menu";
 
 function App() {
 
 	const [quotes, setQuotes] = useState([]);
+	const [timePeriod, setTimePeriod] = useState('all');
 
 	useEffect(() => {
-		fetch('/api/getquotes?max_age=week')
+		console.log(timePeriod);
+		fetch(`/api/getquotes?max_age=${timePeriod}`)
 			.then((res) => res.json())
 			.then((data) => setQuotes(data))
-	}, []);
+	}, [timePeriod]);
+	
 	return (
 		<div className="App">
 			{/* TODO: include an icon for the quote book */}
@@ -24,11 +28,14 @@ function App() {
 				<label htmlFor="input-message">Quote</label>
 				<input type="text" name="message" id="input-message" required />
 				<button type="submit">Submit</button>
+				<DropdownMenu 
+					args={["week", "month", "year", "all"]}
+					onSelect={(value) => setTimePeriod(value)}
+				/>
 			</form>
 
 			<h2>Previous Quotes</h2>
 			{/* TODO: Display the actual quotes from the database */}
-
 			<QuoteDisplay quotes={quotes} />
 		</div>
 	);

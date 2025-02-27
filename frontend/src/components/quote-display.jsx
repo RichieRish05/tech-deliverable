@@ -7,7 +7,7 @@ const QuoteDisplay = ({ quotes }) => {
 
 
     return (
-    <div className="container mt-5">
+    <div className="container mt-5 extra-space-bottom">
         <div className="scrollable-list overflow-auto border rounded p-3" style={{ height: '500px' }}>
             <ul className="list-group">
                 {quotes.map((quote, index) => (

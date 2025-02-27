@@ -14,7 +14,7 @@ const DropdownMenu = ({ args, onSelect }) => {
 
     return (
         <div className="dropdown d-inline-block">
-            <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {selectedOption}
             </button>
             <ul className="dropdown-menu">

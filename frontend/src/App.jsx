@@ -53,29 +53,52 @@ function App() {
 	}
 
 	return (
-		<div className="App">
+		<div className="App mx-5">
 			{/* TODO: include an icon for the quote book */}
-			<h1>Hack at UCI Tech Deliverable</h1>
-
-			<h2>Submit a quote</h2>
-			{/* TODO: implement custom form submission logic to not refresh the page */}
-			<form onSubmit={handleFormSubmit}>
-				<label htmlFor="input-name">Name</label>
-				<input type="text" name="name" id="input-name" required />
-				<label htmlFor="input-message">Quote</label>
-				<input type="text" name="message" id="input-message" required />
-				<button type="submit">Submit</button>
-				<span className="mx-2">Show quotes from the last</span>
-				<DropdownMenu 
-					args={["week", "month", "year", "all"]}
-					onSelect={(value) => setTimePeriod(value)}
+			<div className="text-center">
+				<img
+					src="/quotebook.png"
+					alt="Quote Book"
+					className="img-fluid mb-3 mt-4"
+					style={{ width: "100px", height: "auto" }} // Adjust width as needed
 				/>
+			</div>
+			<h1 className="text-center mb-3">Hack at UCI Tech Deliverable</h1>
+
+			<h2 className="mb-3">Submit a quote</h2>
+			{/* TODO: implement custom form submission logic to not refresh the page */}
+			<form onSubmit={handleFormSubmit} className="mb-3">
+				<div className="mb-3">
+					<label className="form-label" htmlFor="input-name">Name</label>
+					<input type="text" name="name" className="form-control w-25" id="input-name" required />
+				</div>
+				<div className="mb-3">
+					<label class Name="form-label" htmlFor="input-message">Quote</label>
+					<textarea type="text" name="message" className="form-control w-50" id="input-message" required />
+				</div>
+				<button type="submit" className="btn btn-primary">Submit</button>
 			</form>
+
 			<h2>Previous Quotes</h2>
+			<span className="me-2">Show quotes from the last</span>
+			<DropdownMenu 
+				args={["day", "week", "month", "year", "all"]}
+				onSelect={(value) => setTimePeriod(value)}
+				className="mb-3"
+			/>
+
 			{/* TODO: Display the actual quotes from the database */}
 			<QuoteDisplay quotes={quotes} />
+
+
+
+
 		</div>
 	);
 }
 
+
+
+
 export default App;
+

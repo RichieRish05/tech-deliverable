@@ -16,7 +16,7 @@ class Quote(TypedDict):
     time: str
 
 
-database: JSONDatabase[list[Quote]] = JSONDatabase("api/data/database.json")
+database: JSONDatabase[list[Quote]] = JSONDatabase("data/database.json")
 
 
 @asynccontextmanager
